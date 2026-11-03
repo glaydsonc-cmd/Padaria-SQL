@@ -1,3 +1,4 @@
+--criando as tabelas do banco de dados
 CREATE TABLE cliente (
     id_cliente INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -71,7 +72,9 @@ CREATE TABLE ficha (
     FOREIGN KEY (id_produtos) REFERENCES PRODUTOS(id_produto),
     FOREIGN KEY (id_ingrediente) REFERENCES INGREDIENTE(id_ingredientes)
 );
+-- Inserindo dados para cada tabela:
 
+--Inserindo dados na tabela cliente
 INSERT INTO cliente (id_cliente, nome, telefone, email, endereco) VALUES
 (1, 'João Silva', '123456789', 'joao.silva@email.com', 'Rua Esmeralda, 123'),
 (2, 'Maria Luciana', '84 9767-1234', 'maria.luciana@email.com', 'Avenida Principal, 456'),
@@ -83,6 +86,7 @@ INSERT INTO cliente (id_cliente, nome, telefone, email, endereco) VALUES
 (8, 'Fernanda Souza', '84 9876-5432', 'fernanda.souza@email.com', 'Avenida Brasil, 789');
 SELECT * FROM cliente;
 
+--Inserindo dados na tabela funcionario
 INSERT INTO funcionario (id_funcionario, nome, cargo, telefone, data_admissao, id_supervisor) VALUES
 (1, 'Carlos Oliveira', 'Gerente', '84 9123-4567', '2020-01-15', NULL),
 (2, 'Mariana Costa', 'Atendente', '84 9876-5432', '2021-03-10', 1),
@@ -91,3 +95,10 @@ INSERT INTO funcionario (id_funcionario, nome, cargo, telefone, data_admissao, i
 (5, 'Felipe Rocha', 'Cozinheiro', '84 9666-2410', '2020-11-30', 1);
 
 SELECT * FROM funcionario;
+--Inserindo dados na tabela categoria
+INSERT INTO categoria (id_categoria, nome_categoria, descricao_categoria) VALUES
+(1, 'Bebidas', 'Categoria de bebidas alcoólicas e não alcoólicas'),
+(2, 'Lanches', 'Categoria de lanches rápidos e sanduíches'),
+(3, 'Sobremesas', 'Categoria de sobremesas doces e geladas'),
+(4, 'Pratos Principais', 'Categoria de pratos principais e refeições completas');
+SELECT * FROM categoria;
