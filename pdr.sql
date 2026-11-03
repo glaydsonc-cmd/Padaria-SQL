@@ -73,6 +73,7 @@ CREATE TABLE ficha (
 );
 
 INSERT INTO cliente (id_cliente, nome, telefone, email, endereco) VALUES
-(1, 'João Silva', '123456789', 'joao.silva@email.com', 'Rua Exemplo, 123');
+(1, 'João Silva', '123456789', 'joao.silva@email.com', 'Rua Esmeralda, 123'),
+(2, 'Maria Luciana', '84 9767-1234', 'maria.luciana@email.com', 'Avenida Principal, 456');
 
 SELECT * FROM cliente;
