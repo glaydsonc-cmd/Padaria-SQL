@@ -74,6 +74,11 @@ CREATE TABLE ficha (
 
 INSERT INTO cliente (id_cliente, nome, telefone, email, endereco) VALUES
 (1, 'João Silva', '123456789', 'joao.silva@email.com', 'Rua Esmeralda, 123'),
-(2, 'Maria Luciana', '84 9767-1234', 'maria.luciana@email.com', 'Avenida Principal, 456');
-
+(2, 'Maria Luciana', '84 9767-1234', 'maria.luciana@email.com', 'Avenida Principal, 456'),
+(3, 'David Martins', '84 9666-2410', 'david.martinsweb@gmail.com', 'Rua Maria Guadalupe, 265'),
+(4, 'Michelle Miller', '84 9999-8888', 'michelle.miller@email.com', 'Travessa das Flores, 789'),
+(5, 'Carlos Eduardo', '84 9876-5432', 'carlos.eduardo@email.com', 'Praça da Liberdade, 101'),
+(6, 'Ana Paula', '84 9123-4567', 'ana.paula@email.com', 'Rua das Palmeiras, 456'),
+(7, 'Lucas Fernando', '84 9988-7766', 'lucas.fernando@email.com', 'Praça da Independência, 202'),
+(8, 'Fernanda Souza', '84 9876-5432', 'fernanda.souza@email.com', 'Avenida Brasil, 789');
 SELECT * FROM cliente;
