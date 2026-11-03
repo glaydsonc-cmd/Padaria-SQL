@@ -82,3 +82,12 @@ INSERT INTO cliente (id_cliente, nome, telefone, email, endereco) VALUES
 (7, 'Lucas Fernando', '84 9988-7766', 'lucas.fernando@email.com', 'Praça da Independência, 202'),
 (8, 'Fernanda Souza', '84 9876-5432', 'fernanda.souza@email.com', 'Avenida Brasil, 789');
 SELECT * FROM cliente;
+
+INSERT INTO funcionario (id_funcionario, nome, cargo, telefone, data_admissao, id_supervisor) VALUES
+(1, 'Carlos Oliveira', 'Gerente', '84 9123-4567', '2020-01-15', NULL),
+(2, 'Mariana Costa', 'Atendente', '84 9876-5432', '2021-03-10', 1),
+(3, 'Rafael Lima', 'Cozinheiro', '84 9988-7766', '2019-07-20', 1),
+(4, 'Juliana Santos', 'Atendente', '84 9767-1234', '2022-05-05', 1),
+(5, 'Felipe Rocha', 'Cozinheiro', '84 9666-2410', '2020-11-30', 1);
+
+SELECT * FROM funcionario;
