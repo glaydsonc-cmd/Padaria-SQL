@@ -95,6 +95,7 @@ INSERT INTO funcionario (id_funcionario, nome, cargo, telefone, data_admissao, i
 (5, 'Felipe Rocha', 'Cozinheiro', '84 9666-2410', '2020-11-30', 1);
 
 SELECT * FROM funcionario;
+
 --Inserindo dados na tabela categoria
 INSERT INTO categoria (id_categoria, nome_categoria, descricao_categoria) VALUES
 (1, 'Bebidas', 'Categoria de bebidas alcoólicas e não alcoólicas'),
