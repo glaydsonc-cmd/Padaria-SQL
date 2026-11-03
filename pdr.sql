@@ -1,4 +1,4 @@
-CREATE TABLE CLIENTE (
+CREATE TABLE cliente (
     id_cliente INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     telefone VARCHAR(20),
@@ -6,7 +6,7 @@ CREATE TABLE CLIENTE (
     endereco VARCHAR(200)
 );
 
-CREATE TABLE FUNCIONARIO (
+CREATE TABLE funcionario (
     id_funcionario INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cargo VARCHAR(50),
@@ -16,13 +16,13 @@ CREATE TABLE FUNCIONARIO (
     FOREIGN KEY (id_supervisor) REFERENCES FUNCIONARIO(id_funcionario)
 );
 
-CREATE TABLE CATEGORIA (
+CREATE TABLE categoria (
     id_categoria INT PRIMARY KEY,
     nome_categoria VARCHAR(100) NOT NULL,
     descricao_categoria TEXT
 );
 
-CREATE TABLE PRODUTOS (
+CREATE TABLE produtos (
     id_produto INT PRIMARY KEY,
     nome_produto VARCHAR(100) NOT NULL,
     descricao TEXT,
@@ -34,7 +34,7 @@ CREATE TABLE PRODUTOS (
     FOREIGN KEY (id_categoria) REFERENCES CATEGORIA(id_categoria)
 );
 
-CREATE TABLE PEDIDOS (
+CREATE TABLE pedidos (
     id_pedidos INT PRIMARY KEY,
     data_pedido DATE NOT NULL,
     hora_pedido TIME NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE PEDIDOS (
     FOREIGN KEY (id_funcionario) REFERENCES FUNCIONARIO(id_funcionario)
 );
 
-CREATE TABLE ITEM_PEDIDO (
+CREATE TABLE item_pedido (
     id_item_pedido INT PRIMARY KEY,
     id_pedido INT NOT NULL,
     id_produto INT NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE ITEM_PEDIDO (
     FOREIGN KEY (id_produto) REFERENCES PRODUTOS(id_produto)
 );
 
-CREATE TABLE INGREDIENTE (
+CREATE TABLE ingrediente (
     id_ingredientes INT PRIMARY KEY,
     nome_ingrediente VARCHAR(100) NOT NULL,
     quantidade_estoque INT,
@@ -63,7 +63,7 @@ CREATE TABLE INGREDIENTE (
     custo_unidade DECIMAL(10, 2)
 );
 
-CREATE TABLE FICHA (
+CREATE TABLE ficha (
     id_ficha INT PRIMARY KEY,
     id_produtos INT NOT NULL,
     id_ingrediente INT NOT NULL,
@@ -71,3 +71,8 @@ CREATE TABLE FICHA (
     FOREIGN KEY (id_produtos) REFERENCES PRODUTOS(id_produto),
     FOREIGN KEY (id_ingrediente) REFERENCES INGREDIENTE(id_ingredientes)
 );
+
+INSERT INTO cliente (id_cliente, nome, telefone, email, endereco) VALUES
+(1, 'João Silva', '123456789', 'joao.silva@email.com', 'Rua Exemplo, 123');
+
+SELECT * FROM cliente;
