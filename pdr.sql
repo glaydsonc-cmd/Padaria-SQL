@@ -1,4 +1,4 @@
--- Criação das tabelas
+-- Tabelas
 
 CREATE TABLE cliente (
     id_cliente INT PRIMARY KEY,
@@ -99,7 +99,7 @@ VALUES
 
 
 -- Dados de funcionários
--- O funcionário 1 não tem supervisor; os demais são supervisionados por ele.
+-- Lembrando que o funcionário 1 é o suervisor os demais são supervisionados por ele.
 
 INSERT INTO funcionario
     (id_funcionario, nome, cargo, telefone, data_admissao, id_supervisor)
@@ -123,7 +123,7 @@ VALUES
 
 
 -- Produtos
--- A data de validade foi deixada NULL porque depende do produto e do controle do estabelecimento.
+-- A data de validade foi deixada NULL porque irá depender do produto e do controle do estabelecimento.
 
 INSERT INTO produtos
     (id_produto, nome_produto, descricao, preco_unitario, custo,
@@ -184,7 +184,6 @@ VALUES
     (4, 2, 4, 1, 25.00);
 
 
--- Consultas para conferir os dados inseridos
 
 SELECT * FROM cliente;
 SELECT * FROM funcionario;
