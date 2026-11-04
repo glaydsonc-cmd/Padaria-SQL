@@ -1,62 +1,69 @@
--- Tabelas
-
 CREATE TABLE cliente (
     id_cliente INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    telefone VARCHAR(20),
-    email VARCHAR(100),
-    endereco VARCHAR(200)
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    endereco VARCHAR(200) NOT NULL,
+    CHECK (telefone <> ''),
+    CHECK (email IS NULL OR email LIKE '%@%.%')
 );
 
 CREATE TABLE funcionario (
     id_funcionario INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    cargo VARCHAR(50),
-    telefone VARCHAR(20),
-    data_admissao DATE,
+    cargo VARCHAR(50) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    data_admissao DATE NOT NULL,
     id_supervisor INT,
     FOREIGN KEY (id_supervisor)
-        REFERENCES funcionario(id_funcionario)
+        REFERENCES funcionario(id_funcionario),
+    CHECK (telefone <> ''),
+    CHECK (cargo <> '')
 );
 
 CREATE TABLE categoria (
     id_categoria INT PRIMARY KEY,
-    nome_categoria VARCHAR(100) NOT NULL,
-    descricao_categoria TEXT
+    nome_categoria VARCHAR(100) NOT NULL UNIQUE,
+    descricao_categoria TEXT,
+    CHECK (nome_categoria <> '')
 );
 
 CREATE TABLE produtos (
     id_produto INT PRIMARY KEY,
     nome_produto VARCHAR(100) NOT NULL,
     descricao TEXT,
-    preco_unitario DECIMAL(10, 2),
-    custo DECIMAL(10, 2),
-    preco_unidade_venda DECIMAL(10, 2),
+    preco_unitario DECIMAL(10, 2) NOT NULL CHECK (preco_unitario > 0),
+    custo DECIMAL(10, 2) NOT NULL CHECK (custo >= 0),
+    preco_unidade_venda DECIMAL(10, 2) NOT NULL CHECK (preco_unidade_venda > 0),
     data_validade DATE,
-    id_categoria INT,
+    id_categoria INT NOT NULL,
     FOREIGN KEY (id_categoria)
-        REFERENCES categoria(id_categoria)
+        REFERENCES categoria(id_categoria),
+    CHECK (nome_produto <> ''),
+    CHECK (preco_unitario >= custo),
+    CHECK (preco_unidade_venda >= custo)
 );
 
 CREATE TABLE pedidos (
     id_pedidos INT PRIMARY KEY,
     data_pedido DATE NOT NULL,
     hora_pedido TIME NOT NULL,
-    total_pago DECIMAL(10, 2),
+    total_pago DECIMAL(10, 2) NOT NULL CHECK (total_pago >= 0),
     id_cliente INT NOT NULL,
     id_funcionario INT NOT NULL,
     FOREIGN KEY (id_cliente)
         REFERENCES cliente(id_cliente),
     FOREIGN KEY (id_funcionario)
-        REFERENCES funcionario(id_funcionario)
+        REFERENCES funcionario(id_funcionario),
+    CHECK (hora_pedido BETWEEN '00:00:00' AND '23:59:59')
 );
 
 CREATE TABLE item_pedido (
     id_item_pedido INT PRIMARY KEY,
     id_pedido INT NOT NULL,
     id_produto INT NOT NULL,
-    quantidade INT NOT NULL,
-    preco_unitario DECIMAL(10, 2),
+    quantidade INT NOT NULL CHECK (quantidade > 0),
+    preco_unitario DECIMAL(10, 2) NOT NULL CHECK (preco_unitario > 0),
     FOREIGN KEY (id_pedido)
         REFERENCES pedidos(id_pedidos),
     FOREIGN KEY (id_produto)
@@ -66,20 +73,23 @@ CREATE TABLE item_pedido (
 CREATE TABLE ingrediente (
     id_ingredientes INT PRIMARY KEY,
     nome_ingrediente VARCHAR(100) NOT NULL,
-    quantidade_estoque INT,
-    unidade_medida VARCHAR(20),
-    custo_unidade DECIMAL(10, 2)
+    quantidade_estoque INT NOT NULL CHECK (quantidade_estoque >= 0),
+    unidade_medida VARCHAR(20) NOT NULL,
+    custo_unidade DECIMAL(10, 2) NOT NULL CHECK (custo_unidade >= 0),
+    CHECK (nome_ingrediente <> ''),
+    CHECK (unidade_medida <> '')
 );
 
 CREATE TABLE ficha (
     id_ficha INT PRIMARY KEY,
     id_produtos INT NOT NULL,
     id_ingrediente INT NOT NULL,
-    quantidade_necessaria DECIMAL(10, 2) NOT NULL,
+    quantidade_necessaria DECIMAL(10, 2) NOT NULL CHECK (quantidade_necessaria > 0),
     FOREIGN KEY (id_produtos)
         REFERENCES produtos(id_produto),
     FOREIGN KEY (id_ingrediente)
-        REFERENCES ingrediente(id_ingredientes)
+        REFERENCES ingrediente(id_ingredientes),
+    UNIQUE (id_produtos, id_ingrediente)
 );
 
 
