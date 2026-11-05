@@ -1,8 +1,8 @@
-# 🥖 Sistema de Gerenciamento de Padaria
+# Sistema de Gerenciamento de Padaria
 
 Projeto acadêmico de desenvolvimento de banco de dados para o gerenciamento de uma padaria, utilizando **PostgreSQL**.
 
-## 📌 Sobre o projeto
+## Sobre o projeto
 
 O Sistema de Gerenciamento de Padaria tem como objetivo facilitar a organização e o controle das atividades de uma padaria por meio de um banco de dados relacional.
 
@@ -10,7 +10,7 @@ O sistema permite armazenar informações sobre clientes, funcionários, produto
 
 A proposta é melhorar o gerenciamento do estabelecimento, facilitar consultas e relatórios, acompanhar as vendas e contribuir para a redução de desperdícios.
 
-## 🎯 Objetivos
+## Objetivos
 
 - Organizar o cadastro de clientes e funcionários.
 - Gerenciar produtos e suas respectivas categorias.
@@ -20,12 +20,12 @@ A proposta é melhorar o gerenciamento do estabelecimento, facilitar consultas e
 - Consultar o histórico de vendas.
 - Calcular o faturamento e identificar os produtos mais vendidos.
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 - **PostgreSQL** – Sistema gerenciador de banco de dados relacional.
 - **SQL** – Linguagem utilizada para criação, manipulação e consulta dos dados.
 
-## 🗄️ Estrutura do banco de dados
+## Estrutura do banco de dados
 
 O banco de dados é composto pelas seguintes tabelas:
 
@@ -40,7 +40,7 @@ O banco de dados é composto pelas seguintes tabelas:
 | `ingrediente` | Controla os ingredientes e suas quantidades em estoque. |
 | `ficha` | Relaciona produtos aos ingredientes necessários para sua produção. |
 
-## ⚙️ Funcionalidades implementadas
+## Funcionalidades implementadas
 
 - Criação das tabelas e definição de chaves primárias e estrangeiras.
 - Inserção de dados de clientes, funcionários, produtos e ingredientes.
@@ -54,7 +54,7 @@ O banco de dados é composto pelas seguintes tabelas:
 - Consulta do faturamento por categoria.
 - Filtragem de pedidos por período.
 
-## 📊 Consultas SQL
+## Consultas SQL
 
 O projeto utiliza diferentes recursos da linguagem SQL, incluindo:
 
@@ -68,7 +68,7 @@ O projeto utiliza diferentes recursos da linguagem SQL, incluindo:
 - `GROUP BY` – Agrupamento de registros.
 - `SUM()`, `AVG()` e `COUNT()` – Funções de agregação.
 
-## 🚀 Como executar o projeto
+## Como executar o projeto
 
 1. Instale o [PostgreSQL](https://www.postgresql.org/).
 2. Abra uma ferramenta de gerenciamento de banco de dados, como o pgAdmin ou DBeaver.
@@ -81,7 +81,7 @@ O projeto utiliza diferentes recursos da linguagem SQL, incluindo:
    - Consultas SQL.
 6. Verifique os resultados das consultas.
 
-## 🔮 Melhorias futuras
+## Melhorias futuras
 
 - Implementar o cadastro e gerenciamento de fornecedores.
 - Desenvolver controle de fornadas e datas de produção.
@@ -89,7 +89,7 @@ O projeto utiliza diferentes recursos da linguagem SQL, incluindo:
 - Aprimorar o controle de estoque e ingredientes.
 - Implementar funcionalidades para acompanhamento da produção.
 
-## 🎓 Contexto acadêmico
+## Contexto acadêmico
 
 Projeto desenvolvido como atividade acadêmica, com o objetivo de aplicar os conhecimentos de modelagem de banco de dados, relacionamentos, manipulação de registros e consultas SQL utilizando PostgreSQL.
 
