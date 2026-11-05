@@ -1,3 +1,5 @@
+-- Restrição de integridade: cliente deve possuir dados básicos válidos,
+-- telefone obrigatório e email único quando informado.
 CREATE TABLE cliente (
     id_cliente INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -8,6 +10,8 @@ CREATE TABLE cliente (
     CHECK (email IS NULL OR email LIKE '%@%.%')
 );
 
+-- Restrição de integridade: funcionário precisa ter cargo e telefone válidos,
+-- além de manter a hierarquia por meio do supervisor.
 CREATE TABLE funcionario (
     id_funcionario INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -21,6 +25,7 @@ CREATE TABLE funcionario (
     CHECK (cargo <> '')
 );
 
+-- Restrição de integridade: categoria não pode se repetir e o nome deve ser informado.
 CREATE TABLE categoria (
     id_categoria INT PRIMARY KEY,
     nome_categoria VARCHAR(100) NOT NULL UNIQUE,
@@ -28,6 +33,8 @@ CREATE TABLE categoria (
     CHECK (nome_categoria <> '')
 );
 
+-- Restrição de integridade: produto não pode ter preço inválido,
+-- e o preço de venda deve manter consistência com o custo.
 CREATE TABLE produtos (
     id_produto INT PRIMARY KEY,
     nome_produto VARCHAR(100) NOT NULL,
@@ -44,6 +51,7 @@ CREATE TABLE produtos (
     CHECK (preco_unidade_venda >= custo)
 );
 
+-- Restrição de integridade: pedido deve sempre estar relacionado a cliente e funcionário válidos.
 CREATE TABLE pedidos (
     id_pedidos INT PRIMARY KEY,
     data_pedido DATE NOT NULL,
@@ -58,6 +66,7 @@ CREATE TABLE pedidos (
     CHECK (hora_pedido BETWEEN '00:00:00' AND '23:59:59')
 );
 
+-- Restrição de integridade: cada item precisa representar uma quantidade e preço válidos.
 CREATE TABLE item_pedido (
     id_item_pedido INT PRIMARY KEY,
     id_pedido INT NOT NULL,
@@ -70,6 +79,7 @@ CREATE TABLE item_pedido (
         REFERENCES produtos(id_produto)
 );
 
+-- Restrição de integridade: estoque e custo do ingrediente não podem ser negativos.
 CREATE TABLE ingrediente (
     id_ingredientes INT PRIMARY KEY,
     nome_ingrediente VARCHAR(100) NOT NULL,
@@ -80,6 +90,7 @@ CREATE TABLE ingrediente (
     CHECK (unidade_medida <> '')
 );
 
+-- Restrição de integridade: a mesma ficha não pode repetir o mesmo ingrediente.
 CREATE TABLE ficha (
     id_ficha INT PRIMARY KEY,
     id_produtos INT NOT NULL,
@@ -92,8 +103,6 @@ CREATE TABLE ficha (
     UNIQUE (id_produtos, id_ingrediente)
 );
 
-
--- Dados de clientes
 
 INSERT INTO cliente
     (id_cliente, nome, telefone, email, endereco)
@@ -108,9 +117,6 @@ VALUES
     (8, 'Fernanda Souza', '84 9876-5432', 'fernanda.souza@email.com', 'Avenida Brasil, 789');
 
 
--- Dados de funcionários
--- Lembrando que o funcionário 1 é o suervisor os demais são supervisionados por ele.
-
 INSERT INTO funcionario
     (id_funcionario, nome, cargo, telefone, data_admissao, id_supervisor)
 VALUES
@@ -121,8 +127,6 @@ VALUES
     (5, 'Felipe Rocha', 'Cozinheiro', '84 9666-2410', '2020-11-30', 1);
 
 
--- Categorias de produtos
-
 INSERT INTO categoria
     (id_categoria, nome_categoria, descricao_categoria)
 VALUES
@@ -131,9 +135,6 @@ VALUES
     (3, 'Sobremesas', 'Sobremesas doces e geladas'),
     (4, 'Pratos Principais', 'Pratos principais e refeições completas');
 
-
--- Produtos
--- A data de validade foi deixada NULL porque irá depender do produto e do controle do estabelecimento.
 
 INSERT INTO produtos
     (id_produto, nome_produto, descricao, preco_unitario, custo,
@@ -145,8 +146,6 @@ VALUES
     (4, 'Prato executivo', 'Arroz, feijão e frango grelhado', 25.00, 12.00, 25.00, NULL, 4);
 
 
--- Ingredientes
-
 INSERT INTO ingrediente
     (id_ingredientes, nome_ingrediente, quantidade_estoque, unidade_medida, custo_unidade)
 VALUES
@@ -157,9 +156,6 @@ VALUES
     (5, 'Arroz', 15, 'kg', 6.00),
     (6, 'Feijão', 10, 'kg', 8.00);
 
-
--- Fichas técnicas dos produtos
--- Cada linha indica um ingrediente e a quantidade necessária para o produto.
 
 INSERT INTO ficha
     (id_ficha, id_produtos, id_ingrediente, quantidade_necessaria)
@@ -173,17 +169,12 @@ VALUES
     (7, 4, 6, 0.08);
 
 
--- Pedidos
-
 INSERT INTO pedidos
     (id_pedidos, data_pedido, hora_pedido, total_pago, id_cliente, id_funcionario)
 VALUES
     (1, '2026-11-03', '12:30:00', 23.00, 1, 2),
     (2, '2026-11-03', '13:15:00', 35.00, 2, 4);
 
-
--- Itens dos pedidos
--- Os preços registrados podem representar o preço praticado no momento da venda.
 
 INSERT INTO item_pedido
     (id_item_pedido, id_pedido, id_produto, quantidade, preco_unitario)
@@ -195,11 +186,39 @@ VALUES
 
 
 
-SELECT * FROM cliente;
-SELECT * FROM funcionario;
-SELECT * FROM categoria;
-SELECT * FROM produtos;
-SELECT * FROM ingrediente;
-SELECT * FROM ficha;
-SELECT * FROM pedidos;
-SELECT * FROM item_pedido;
+SELECT * FROM cliente ORDER BY id_cliente;
+SELECT * FROM funcionario ORDER BY id_funcionario;
+SELECT * FROM categoria ORDER BY id_categoria;
+SELECT * FROM produtos ORDER BY id_produto;
+SELECT * FROM ingrediente ORDER BY id_ingredientes;
+SELECT * FROM ficha ORDER BY id_ficha;
+SELECT * FROM pedidos ORDER BY id_pedidos;
+SELECT * FROM item_pedido ORDER BY id_item_pedido;
+
+SELECT p.id_pedidos, c.nome AS cliente, f.nome AS funcionario, p.data_pedido, p.total_pago
+FROM pedidos p
+JOIN cliente c ON c.id_cliente = p.id_cliente
+JOIN funcionario f ON f.id_funcionario = p.id_funcionario
+ORDER BY p.id_pedidos;
+
+SELECT ip.id_pedido, pr.nome_produto, ip.quantidade, ip.preco_unitario,
+       (ip.quantidade * ip.preco_unitario) AS valor_item
+FROM item_pedido ip
+JOIN produtos pr ON pr.id_produto = ip.id_produto
+ORDER BY ip.id_pedido, ip.id_produto;
+
+SELECT pr.id_produto, pr.nome_produto, cat.nome_categoria, pr.preco_unidade_venda, pr.custo
+FROM produtos pr
+JOIN categoria cat ON cat.id_categoria = pr.id_categoria
+ORDER BY pr.id_produto;
+
+SELECT pr.nome_produto, ing.nome_ingrediente, f.quantidade_necessaria, ing.unidade_medida
+FROM ficha f
+JOIN produtos pr ON pr.id_produto = f.id_produtos
+JOIN ingrediente ing ON ing.id_ingredientes = f.id_ingrediente
+ORDER BY pr.id_produto, ing.nome_ingrediente;
+
+SELECT ing.id_ingredientes, ing.nome_ingrediente, ing.quantidade_estoque, ing.unidade_medida
+FROM ingrediente ing
+WHERE ing.quantidade_estoque <= 10
+ORDER BY ing.quantidade_estoque;
